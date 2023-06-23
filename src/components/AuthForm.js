@@ -68,6 +68,7 @@ const AuthForm = () => {
           setErrors(newErrors);
         }  else {
           localStorage.setItem("authToken", response.data.token);
+          sessionStorage.setItem("authToken", response.data.token);
           console.log(response.data);
           setSuccess("Registration successful!"); 
         }
@@ -105,7 +106,9 @@ const AuthForm = () => {
       try {
         const response = await axios.post("http://localhost/project6/login.php", form);
         if (response.data.message === 'Login successful') {
-            localStorage.setItem("authToken", response.data.token);
+          localStorage.setItem("authToken", response.data.token);
+          sessionStorage.setItem("authToken", response.data.token);
+          console.log(response.data);
             switch(response.data.role_id) {
                 case 1:
                     window.location.href = '/page1';
@@ -131,6 +134,7 @@ const AuthForm = () => {
 
   const logout = () => {
     localStorage.removeItem("authToken");
+    sessionStorage.removeItem("authToken");
     window.location.href = '/'; // Or redirect the user to login screen
   };
 

@@ -1,17 +1,18 @@
 import React from 'react';
 import './App.css';
-import Services from './components/Services';
-import SingleService from './components/SingleService';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+import Dashboard from './components/dashboard';
+import Header from './components/landing/Header';
+import Footer from './components/landing/Footer';
+import YouTubeVideo from './components/landing/YouTubeVideo';
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Services />} />
-        <Route path="/details/:id" element={<SingleService />} />
-      </Routes>
-    </Router>
+    <div>
+      {/* <Dashboard/> */}
+      <Header />
+      <YouTubeVideo />
+      <Footer />
+    </div>
   );
 }
 

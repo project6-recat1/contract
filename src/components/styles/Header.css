@@ -1,0 +1,242 @@
+/* * { 
+    margin: 0;
+   padding: 0;
+   color: #f2f5f7;
+   font-family: sans-serif;
+   letter-spacing: 1px;
+   font-weight: 300;
+ } */
+ 
+
+ nav {
+   height: 6rem;
+   width: 100vw;
+   background-color: #131418;
+   color: #f2f5f7;
+   box-shadow: 0 3px 20px rgba(0, 0, 0, 0.2);
+   display: flex;
+   position: fixed;
+   z-index: 10;
+ }
+ 
+ /* Styling logo */
+ .logo {
+   
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }
+ 
+ .logo img {
+   height: 10rem;
+   width: 20rem;
+ }
+ 
+ /* Styling Links */
+ .nav-links {
+   display: flex;
+   list-style: none;
+   width: 88vw;
+   padding: 0 0.7vw;
+   color: #f2f5f7;
+   justify-content: end;
+   align-items: center;
+   text-transform: uppercase;
+ }
+ .nav-links li{
+   margin-right: 20px;
+ }
+ .nav-links li a {
+   text-decoration: none;
+   color: #f2f5f7;
+
+   margin: 0 0.7vw;
+ }
+ 
+ .nav-links li a:hover {
+   color: #e7b10a;
+ }
+ 
+ .nav-links li {
+   position: relative;
+ }
+ 
+ .nav-links li ::before {
+   content: "";
+   display: block;
+   height: 3px;
+   width: 0%;
+   bottom: -5px;
+   background-color: #e7b10a;
+   position: absolute;
+   transition: all ease-in-out 250ms;
+   margin: 0 0 0 10%;
+ }
+ 
+ .nav-links li .navA:hover::before {
+   width: 80%;
+ }
+ 
+ /* Styling Buttons */
+ .login-button {
+   background-color: transparent;
+   border: 1.5px solid #f2f5f7;
+   border-radius: 2em;
+   padding: 0.6rem 0.8rem;
+   margin-left: 2vw;
+   font-size: 1rem;
+   cursor: pointer;
+ }
+ 
+ .login-button:hover {
+   color: #131418;
+   background-color: #f2f5f7;
+   border: 1.5px solid #f2f5f7;
+   transition: all ease-in-out 350ms;
+ }
+ .weather-icon {
+   font-size: 25px;
+   /* Set the desired size */
+ }
+ .temp-icon{
+   margin-top: -10px; 
+ }
+ 
+ .join-button {
+   color: #131418;
+   background-color: #e7b10a;
+   border: 1.5px solid #E7B10A;
+   border-radius: 2em;
+   padding: 0.6rem 0.8rem;
+   font-size: 1rem;
+   cursor: pointer;
+ }
+ 
+ .join-button:hover {
+   color: #f2f5f7;
+   background-color: transparent;
+   border: 1.5px solid #f2f5f7;
+   transition: all ease-in-out 350ms;
+ }
+ 
+ /* Styling Hamburger Icon */
+ .hamburger div {
+   width: 30px;
+   height: 3px;
+   background: #f2f5f7;
+   margin: 5px;
+   transition: all 0.3s ease;
+ }
+ 
+ .hamburger {
+   display: none;
+   
+ }
+ 
+ /* Styling for small screens */
+ @media screen and (max-width: 1167px) {
+   nav {
+     position: fixed;
+     z-index: 3;
+   }
+   .logo img {
+       height: 7.5rem;
+       width: 15rem;
+     }
+   .hamburger {
+     display: block;
+     position: absolute;
+     cursor: pointer;
+     right: 5%;
+     top: 50%;
+     transform: translate(-5%, -50%);
+     z-index: 2;
+     transition: all 0.7s ease;
+   }
+ 
+   .nav-links {
+     position: fixed;
+     background: #131418;
+     height: 120vh;
+     width: 100%;
+     color: aliceblue;
+     flex-direction: column;
+     justify-content:start;
+     align-items: center;
+     clip-path: circle(50px at 90% -20%);
+     -webkit-clip-path: circle(50px at 90% -10%);
+     transition: all 1s ease-out;
+     pointer-events: none;
+   }
+ 
+   .nav-links.open {
+     clip-path: circle(50px at 90% -10%);
+     -webkit-clip-path: circle(700px at 90% -10%);
+     pointer-events: all;
+   }
+ 
+   .nav-links li {
+     opacity: 1;
+     margin-top: 100px;
+   }
+   .join-button{
+       margin-top: -20px;
+   }
+   .login-button{
+       margin-top:-20px ;
+   }
+ 
+   .nav-links li:nth-child(1) {
+     transition: all 0.5s ease 0.2s;
+   }
+ 
+   .nav-links li:nth-child(2) {
+     transition: all 0.5s ease 0.4s;
+     margin-top: 30px;
+   }
+ 
+   .nav-links li:nth-child(3) {
+     transition: all 0.5s ease 0.6s;
+     margin-top: 30px;
+   }
+ 
+   .nav-links li:nth-child(4) {
+     transition: all 0.5s ease 0.7s;
+     margin-top: 50px;
+   }
+ 
+   .nav-links li:nth-child(5) {
+     transition: all 0.5s ease 0.8s;
+     margin-top: 30px;
+
+   }
+ 
+   .nav-links li:nth-child(6) {
+     transition: all 0.5s ease 0.9s;
+    margin-top: 30px;
+   }
+ 
+   .nav-links li:nth-child(7) {
+     transition: all 0.5s ease 1s;
+     margin-top: 30px;
+   }
+ 
+   li.fade {
+     opacity: 1;
+   }
+ }
+ 
+ /* Animating Hamburger Icon on Click */
+ .toggle .line1 {
+   transform: rotate(-45deg) translate(-5px, 6px);
+ }
+ 
+ .toggle .line2 {
+   transition: all 0.7s ease;
+   width: 0;
+ }
+ 
+ .toggle .line3 {
+   transform: rotate(45deg) translate(-5px, -6px);
+ }
+ 

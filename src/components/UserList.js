@@ -7,8 +7,9 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Title from './Title';
-import { Button, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import { Delete } from '@mui/icons-material';
+import EditIcon from '@mui/icons-material/Edit';
 
 const UserList = ({ openEditUserPopup }) => {
   const [users, setUsers] = useState([]);
@@ -64,7 +65,7 @@ const UserList = ({ openEditUserPopup }) => {
                 style={{ marginRight: "10px" }}
                 onClick={() => openEditUserPopup()}
               >
-                Edit
+                <EditIcon />
               </Link>
 
                 <IconButton onClick={() => deleteUser(user.id)}>

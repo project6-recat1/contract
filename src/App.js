@@ -1,9 +1,18 @@
 import React from 'react';
-import AuthForm from './components/AuthForm'; 
+
+import './App.css';
+
+import Dashboard from './components/dashboard';
+import Header from './components/landing/Header';
+import Footer from './components/landing/Footer';
+import YouTubeVideo from './components/landing/YouTubeVideo';
 function App() {
   return (
-    <div className="App">
-      <AuthForm />
+    <div>
+      {/* <Dashboard/> */}
+      <Header />
+      <YouTubeVideo />
+      <Footer />
     </div>
   );
 }

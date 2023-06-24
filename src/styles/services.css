@@ -1,0 +1,22 @@
+.container-singleservice{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* align-items: center; */
+    margin:80px;
+    gap: 20px;
+}
+
+.left{
+    width: 500px;
+}
+
+.right{
+    width: 500px;
+    height: 300px;
+}
+.right img{
+    object-fit: cover;
+    width: 500px;
+    height: 300px;
+}

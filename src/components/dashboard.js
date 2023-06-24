@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -14,14 +14,15 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
-// import MenuIcon from '@mui/icons-material/Menu';
-// import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-// import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import { secondaryListItems } from './listItems';
+import ListItems from './listItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
-
+import Users from './Users';
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -89,7 +90,11 @@ export default function Dashboard() {
   const toggleDrawer = () => {
     setOpen(!open);
   };
+  const [activePage, setActivePage] = useState(null);
 
+  const handlePageChange = (page) => {
+    setActivePage(page);
+  };
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
@@ -97,7 +102,7 @@ export default function Dashboard() {
         <AppBar position="absolute" open={open}>
           <Toolbar
             sx={{
-              pr: '24px', // keep right padding when drawer closed
+              pr: '20px', // keep right padding when drawer closed
             }}
           >
             <IconButton
@@ -110,7 +115,7 @@ export default function Dashboard() {
                 ...(open && { display: 'none' }),
               }}
             >
-              {/* <MenuIcon /> */}
+              <MenuIcon />
             </IconButton>
             <Typography
               component="h1"
@@ -123,7 +128,7 @@ export default function Dashboard() {
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
-                {/* <NotificationsIcon /> */}
+                <NotificationsIcon />
               </Badge>
             </IconButton>
           </Toolbar>
@@ -138,12 +143,13 @@ export default function Dashboard() {
             }}
           >
             <IconButton onClick={toggleDrawer}>
-              {/* <ChevronLeftIcon /> */}
+              <ChevronLeftIcon />
             </IconButton>
           </Toolbar>
           <Divider />
           <List component="nav">
-            {mainListItems}
+            {/* {mainListItems} */}
+            <ListItems onPageChange={handlePageChange}/>
             <Divider sx={{ my: 1 }} />
             {secondaryListItems}
           </List>
@@ -190,11 +196,16 @@ export default function Dashboard() {
                 </Paper>
               </Grid>
               {/* Recent Orders */}
+              
+              
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders />
+                  {/* <Orders /> */}
+                  {activePage === 'contracts' && <Orders />}
+                  {activePage === 'users' && <Users />}
                 </Paper>
               </Grid>
+
             </Grid>
             <Copyright sx={{ pt: 4 }} />
           </Container>

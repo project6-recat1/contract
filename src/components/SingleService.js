@@ -53,10 +53,10 @@ const SingleService = () => {
             title: '1 month',
             price: service ? `${service.cost_3month}` : '',
             description: [
-                '10 users included',
-                '2 GB of storage',
-                'Help center access',
-                'Email support',
+                // '10 users included',
+                // '2 GB of storage',
+                // 'Help center access',
+                // 'Email support',
             ],
             buttonText: 'Sign contract',
             buttonVariant: 'outlined',
@@ -65,10 +65,10 @@ const SingleService = () => {
             title: '2 months',
             price: service ? `${service.cost_3month * 2}` : '',
             description: [
-                '20 users included',
-                '10 GB of storage',
-                'Help center access',
-                'Priority email support',
+                // '20 users included',
+                // '10 GB of storage',
+                // 'Help center access',
+                // 'Priority email support',
             ],
             buttonText: 'Sign contract',
             buttonVariant: 'outlined',
@@ -77,10 +77,10 @@ const SingleService = () => {
             title: '3 months',
             price: service ? `${service.cost_3month * 3}` : '',
             description: [
-                '50 users included',
-                '30 GB of storage',
-                'Help center access',
-                'Phone & email support',
+                // '50 users included',
+                // '30 GB of storage',
+                // 'Help center access',
+                // 'Phone & email support',
             ],
             buttonText: 'Sign contract',
             buttonVariant: 'outlined',
@@ -142,7 +142,7 @@ const SingleService = () => {
                                                 {tier.price}
                                             </Typography>
                                             <Typography variant="h6" color="text.secondary">
-                                                /mo
+                                                $
                                             </Typography>
                                         </Box>
                                         <ul>

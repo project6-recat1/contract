@@ -83,7 +83,7 @@ const Header = () => {
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <div>
-        <nav>
+        <nav className='mynav'>
           <div className="logo">
             <img src={logo} alt="Logo Image" />
           </div>

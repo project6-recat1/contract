@@ -17,6 +17,9 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import GlobalStyles from '@mui/material/GlobalStyles';
 import Container from '@mui/material/Container';
+import Modal from '@mui/material/Modal';
+import TextField from '@mui/material/TextField';
+import TextareaAutosize from '@mui/material/TextareaAutosize';
 
 // style css
 import '../styles/services.css';
@@ -47,55 +50,86 @@ const SingleService = () => {
             });
     };
 
+    // todays date
+    const currentDate = new Date().toISOString().split('T')[0];
+
+    // Function to calculate expiry date based on current date and time (in days)
+    const calculateExpiryDate = (time) => {
+        const currentDate = new Date();
+        const expiryDate = new Date();
+        expiryDate.setDate(currentDate.getDate() + time);
+        return expiryDate.toISOString().split('T')[0];
+    };
+
     // for the pricing
     const tiers = [
         {
             title: '1 month',
             price: service ? `${service.cost_3month}` : '',
-            description: [
-                // '10 users included',
-                // '2 GB of storage',
-                // 'Help center access',
-                // 'Email support',
-            ],
+            description: [],
+            time: 30,
             buttonText: 'Sign contract',
             buttonVariant: 'outlined',
+            expiryDate: calculateExpiryDate(30), // Calculate expiry date for 30 days
         },
         {
             title: '2 months',
             price: service ? `${service.cost_3month * 2}` : '',
-            description: [
-                // '20 users included',
-                // '10 GB of storage',
-                // 'Help center access',
-                // 'Priority email support',
-            ],
+            description: [],
+            time: 60,
             buttonText: 'Sign contract',
             buttonVariant: 'outlined',
+            expiryDate: calculateExpiryDate(60), // Calculate expiry date for 60 days
         },
         {
             title: '3 months',
             price: service ? `${service.cost_3month * 3}` : '',
-            description: [
-                // '50 users included',
-                // '30 GB of storage',
-                // 'Help center access',
-                // 'Phone & email support',
-            ],
+            description: [],
+            time: 90,
             buttonText: 'Sign contract',
             buttonVariant: 'outlined',
+            expiryDate: calculateExpiryDate(90), // Calculate expiry date for 90 days
         },
     ];
+
+    // Define a variable to hold the selected tier's expiry date
+    const [selectedExpiryDate, setSelectedExpiryDate] = useState('');
+
+    // Define a variable to hold the selected tier's price
+    const [selectedTierPrice, setSelectedTierPrice] = useState('');
+
+    // style for pop up
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+    };
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleOpen = (expiryDate, price) => {
+        setSelectedExpiryDate(expiryDate);
+        setSelectedTierPrice(price);
+        setOpen(true);
+    };
+
+    const handleClose = () => setOpen(false);
 
     // Render the service data
     return (
         <div>
-            <div className='container-singleservice'>
-                <div className='left'>
+            <div className="container-singleservice">
+                <div className="left">
                     <h2>{service ? service.service_name : ''}</h2>
                     <p>{service ? service.description : ''}</p>
                 </div>
-                <div className='right'>
+                <div className="right">
                     <img src={downloadImage} alt="Service" />
                 </div>
             </div>
@@ -124,9 +158,7 @@ const SingleService = () => {
                                         }}
                                         sx={{
                                             backgroundColor: (theme) =>
-                                                theme.palette.mode === 'light'
-                                                    ? theme.palette.grey[200]
-                                                    : theme.palette.grey[700],
+                                                theme.palette.mode === 'light' ? theme.palette.grey[200] : theme.palette.grey[700],
                                         }}
                                     />
                                     <CardContent>
@@ -158,8 +190,13 @@ const SingleService = () => {
                                             ))}
                                         </ul>
                                     </CardContent>
+
                                     <CardActions>
-                                        <Button fullWidth variant={tier.buttonVariant}>
+                                        <Button
+                                            fullWidth
+                                            variant={tier.buttonVariant}
+                                            onClick={() => handleOpen(tier.expiryDate, tier.price)}
+                                        >
                                             {tier.buttonText}
                                         </Button>
                                     </CardActions>
@@ -167,6 +204,66 @@ const SingleService = () => {
                             </Grid>
                         ))}
                     </Grid>
+                    {/* this is for the pop up */}
+                    <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style}>
+                            <Box
+                                component="form"
+                                sx={{
+                                    '& > :not(style)': { m: 2 },
+                                }}
+                                noValidate
+                                autoComplete="off"
+                            >
+                                <h3>{service ? service.service_name : ''}</h3>
+                                <TextField
+                                    id="standard-required"
+                                    label="Price"
+                                    defaultValue={`$${selectedTierPrice}`}
+                                    variant="standard"
+                                    disabled
+                                />
+                                <TextField
+                                    id="standard-required"
+                                    label="Service_id"
+                                    defaultValue={service ? service.id : ''}
+                                    variant="standard"
+                                    type="hidden"
+                                />
+                                <TextField
+                                    id="standard-required"
+                                    label="StartDate"
+                                    defaultValue={currentDate}
+                                    variant="standard"
+                                    type="date"
+                                    disabled
+                                    InputProps={{ classes: { disabled: 'disabled-input' } }}
+                                />
+                                <TextField
+                                    id="standard-required"
+                                    label="ExpireDate"
+                                    defaultValue={selectedExpiryDate}
+                                    variant="standard"
+                                    type="date"
+                                    disabled
+                                    InputProps={{ classes: { disabled: 'disabled-input' } }}
+                                />
+                                <TextareaAutosize
+                                    id="standard-multiline-flexible"
+                                    aria-label="Description"
+                                    defaultValue="I need IT services for my small business. We have a network of 10 computers and require assistance with software installation, network security, and regular system maintenance."
+                                    minRows={4}
+                                    disabled
+                                />
+                                <Button variant="outlined">Submit Contract</Button>
+                            </Box>
+                        </Box>
+                    </Modal>
                 </Container>
             </ThemeProvider>
         </div>

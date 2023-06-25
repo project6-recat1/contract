@@ -16,6 +16,9 @@ const AuthForm = () => {
     email: "",
     password: "",
     phone: "",
+    email1: "",
+    email2: "",
+
   });
   const [success, setSuccess] = useState("");  // Add this line
 
@@ -61,7 +64,7 @@ const AuthForm = () => {
         const response = await axios.post("http://localhost/project6/register.php", form);
         if (response.data.error) {
           if (response.data.error.includes('Email')) {
-            newErrors.email = response.data.error;
+            newErrors.email1 = response.data.error;
           } else if (response.data.error.includes('phone number')) {
             newErrors.phone = response.data.error;
           }
@@ -76,7 +79,7 @@ const AuthForm = () => {
         console.error(err);
         if (err.response && err.response.data && err.response.data.error) {
           if (err.response.data.error.includes('Email')) {
-            newErrors.email = err.response.data.error;
+            newErrors.email1 = err.response.data.error;
           } else if (err.response.data.error.includes('phone number')) {
             newErrors.phone = err.response.data.error;
           }
@@ -121,7 +124,7 @@ const AuthForm = () => {
                     break;
             }
         } else {
-            newErrors.email = "Login failed. Please check your email and password.";
+            newErrors.email2 = "Login failed. Please check your email and password.";
             setErrors(newErrors);
         }
       } catch (err) {
@@ -164,6 +167,7 @@ const AuthForm = () => {
                 <div className="button input-box">
                   <input type="submit" value="Submit" />
                 </div>
+                <div className="error-message">{errors.email2}</div>
                 <div className="text sign-up-text">Don't have an account? <label htmlFor="flip">Signup now</label></div>
               </div>
             </form>
@@ -195,6 +199,7 @@ const AuthForm = () => {
                 <div className="button input-box">
                   <input type="submit" value="Submit" />
                 </div>
+                <div className="error-message">{errors.email1}</div>
                 <div className="success-message">{success}</div> {/* Display success message */}
                 <div className="text sign-up-text">Already have an account? <label htmlFor="flip">Login now</label></div>
               </div>

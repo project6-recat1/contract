@@ -17,12 +17,14 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { secondaryListItems } from './listItems';
+// import { secondaryListItems } from './listItems';
 import ListItems from './listItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
-import Users from './Users';
+// import Users from './Users';
+import UserList from './UserList';
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -95,6 +97,7 @@ export default function Dashboard() {
   const handlePageChange = (page) => {
     setActivePage(page);
   };
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
@@ -148,10 +151,9 @@ export default function Dashboard() {
           </Toolbar>
           <Divider />
           <List component="nav">
-            {/* {mainListItems} */}
-            <ListItems onPageChange={handlePageChange}/>
+            <ListItems onPageChange={handlePageChange} />
             <Divider sx={{ my: 1 }} />
-            {secondaryListItems}
+            {/* {secondaryListItems} */}
           </List>
         </Drawer>
         <Box
@@ -196,18 +198,14 @@ export default function Dashboard() {
                 </Paper>
               </Grid>
               {/* Recent Orders */}
-              
-              
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  {/* <Orders /> */}
                   {activePage === 'contracts' && <Orders />}
-                  {activePage === 'users' && <Users />}
+                  {activePage === 'UserList' && <UserList />}
                 </Paper>
               </Grid>
-
             </Grid>
-            <Copyright sx={{ pt: 4 }} />
+         
           </Container>
         </Box>
       </Box>

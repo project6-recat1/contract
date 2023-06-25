@@ -9,10 +9,10 @@ import YouTubeVideo from './components/landing/YouTubeVideo';
 function App() {
   return (
     <div>
-      {/* <Dashboard/> */}
-      <Header />
+      <Dashboard/>
+      {/* <Header />
       <YouTubeVideo />
-      <Footer />
+      <Footer /> */}
     </div>
   );
 }

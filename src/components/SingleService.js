@@ -20,7 +20,7 @@ const SingleService = () => {
   }, [id]);
 
   const getService = (serviceId) => {
-    axios.get(`http://localhost/react/reactbrief/${serviceId}`)
+    axios.get(`http://localhost/brief6/services/${serviceId}`)
       .then((response) => {
         console.log(response.data);
         setService(response.data);

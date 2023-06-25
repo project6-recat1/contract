@@ -10,8 +10,8 @@ const Footer = () => {
       {/* Site footer */}
       <footer className="site-footer">
         
-        <div className="container">
-          <div className="row">
+        <div className="container1">
+          <div className="row ">
             <div className="col-md-8 col-sm-6 col-xs-12">
               <p className="copyright-text">
                 Copyright &copy; 2023 All Rights Reserved by 
@@ -23,7 +23,7 @@ const Footer = () => {
               <ul className="social-icons">
               <li><a className="facebook" href="facebook"><FacebookOutlinedIcon /></a></li>
                 <li><a className="twitter" href="twitter"><LinkedInIcon /></a></li>
-                <li><a className="dribbble" href="dribble"><GitHubIcon /></a></li>
+                <li><a className="github" href="github"><GitHubIcon /></a></li>
                 <li><a className="linkedin" href="linkedin"><TwitterIcon /></a></li>
               </ul>
             </div>

@@ -25,6 +25,7 @@ const YouTubeVideo = () => {
 
     return (
         <div className="youtube-video-container">
+            <h2>About Us</h2>
             {videos.map(video => (
                 <div className="video-wrapper" key={video.id.videoId}>
                 <div className="video-player">

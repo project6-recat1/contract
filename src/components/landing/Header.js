@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Link, BrowserRouter } from 'react-router-dom';
+import { Link ,Router,Route,Routes,BrowserRouter } from 'react-router-dom';
 // import '.../styles/Header.css';
 import '../styles/Header.css'
 import logo from '../styles/logo.png';
 import axios from 'axios';
 import { WiDaySunny, WiCloudy, WiRain, WiSnow, WiThunderstorm } from 'react-icons/wi';
+import AuthForm from '../AuthForm';
+import Home from './Home';
+import SingleService from '../SingleService'
+import UserProfile from '../User/UserProfile';
 
 const apiKey = 'ba10be85226b1bd0dc34c4ebdbfa3ce4'; // Replace with your OpenWeatherMap API key
 
@@ -15,12 +19,17 @@ const Header = () => {
   const [date, setDate] = useState('');
   const [cityName, setCityName] = useState('');
   const [weatherCondition, setWeatherCondition] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login status
 
   const handleMenuClick = () => {
     setMenuOpen(!menuOpen);
   };
 
   useEffect(() => {
+    // Check if user_id session exists
+    const userId = sessionStorage.getItem('user_id');
+    setIsLoggedIn(!!userId); // Update login status based on session existence
+
     const fetchWeatherData = async (latitude, longitude) => {
       try {
         const response = await axios.get(
@@ -79,9 +88,19 @@ const Header = () => {
         return null;
     }
   };
+  const logout = () => {
+    localStorage.removeItem("authToken");
+    sessionStorage.removeItem("authToken");
+    sessionStorage.removeItem("user_id");
+    sessionStorage.removeItem("user_name");
 
+
+    window.location.href = '/'; // Or redirect the user to login screen
+  };
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
+          {/* <Router> */}
+
       <div>
         <nav className='mynav'>
           <div className="logo">
@@ -94,7 +113,7 @@ const Header = () => {
           </div>
           <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>
             <li>
-              <Link to="#Home" className="navA">
+              <Link to="/" className="navA">
                 Home
               </Link>
             </li>
@@ -103,16 +122,33 @@ const Header = () => {
                 Services
               </Link>
             </li>
+            {isLoggedIn ? ( // Check if user is logged in
+              <>
+                <li>
+                  <Link to="/profile" className="navA">
+                    Profile
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/" className="logout-button" onClick={logout}>
+                    Logout
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
             <li>
-              <Link to="#login" className="login-button">
-                Signup
-              </Link>
-            </li>
-            <li>
-              <Link to="#signin" className="join-button">
+              <Link to="/signin" className="login-button">
                 Login
               </Link>
             </li>
+            </>
+            )}
+            {/* <li>
+              <Link to="/signin"  className="join-button">
+                Login
+              </Link>
+            </li> */}
             <li>{cityName}</li>
             <li>{`${dayAbbreviation} ${date}`}</li>
             <li className='temp-icon'>
@@ -121,8 +157,18 @@ const Header = () => {
             </li>
           </ul>
         </nav>
+        <Routes>
+          <Route path="/signin" element={<AuthForm />} />  
+          <Route path="/" element={<Home />} />   
+          <Route path="/details/${service.id}" element={<SingleService />} /> 
+          <Route path="/profile" element={<UserProfile />} />   
+  
+        
+        </Routes>
       </div>
-    </BrowserRouter>
+      {/* </Router> */}
+      </BrowserRouter>
+
   );
 };
 

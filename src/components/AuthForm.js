@@ -16,6 +16,8 @@ const AuthForm = () => {
     email: "",
     password: "",
     phone: "",
+    email1: "",
+    email2: "",
   });
   const [success, setSuccess] = useState("");  // Add this line
 
@@ -61,7 +63,7 @@ const AuthForm = () => {
         const response = await axios.post("http://localhost/project6/register.php", form);
         if (response.data.error) {
           if (response.data.error.includes('Email')) {
-            newErrors.email = response.data.error;
+            newErrors.email1 = response.data.error;
           } else if (response.data.error.includes('phone number')) {
             newErrors.phone = response.data.error;
           }
@@ -76,7 +78,7 @@ const AuthForm = () => {
         console.error(err);
         if (err.response && err.response.data && err.response.data.error) {
           if (err.response.data.error.includes('Email')) {
-            newErrors.email = err.response.data.error;
+            newErrors.email1 = err.response.data.error;
           } else if (err.response.data.error.includes('phone number')) {
             newErrors.phone = err.response.data.error;
           }
@@ -104,24 +106,28 @@ const AuthForm = () => {
 
     if (Object.values(newErrors).every(x => x === "")) {
       try {
-        const response = await axios.post("http://localhost/project6/login.php", form);
+        const response = await axios.post("http://localhost/brief6/sign/login.php", form);
         if (response.data.message === 'Login successful') {
           localStorage.setItem("authToken", response.data.token);
           sessionStorage.setItem("authToken", response.data.token);
+          // sessionStorage.setItem("user_id", response.data.id);
+          sessionStorage.setItem("user_id", response.data.user_id);
+          sessionStorage.setItem("user_name", response.data.user_name);
+
           console.log(response.data);
             switch(response.data.role_id) {
                 case 1:
                     window.location.href = '/page1';
                     break;
                 case 2:
-                    window.location.href = '/page2';
+                    window.location.href = '/profile';
                     break;
                 default:
                     window.location.href = '/defaultPage';
                     break;
             }
         } else {
-            newErrors.email = "Login failed. Please check your email and password.";
+            newErrors.email2 = "Login failed. Please check your email and password.";
             setErrors(newErrors);
         }
       } catch (err) {
@@ -132,15 +138,19 @@ const AuthForm = () => {
     }
   };
 
-  const logout = () => {
-    localStorage.removeItem("authToken");
-    sessionStorage.removeItem("authToken");
-    window.location.href = '/'; // Or redirect the user to login screen
-  };
+  // const logout = () => {
+  //   localStorage.removeItem("authToken");
+  //   sessionStorage.removeItem("authToken");
+  //   sessionStorage.removeItem("user_id");
+  //   sessionStorage.removeItem("user_name");
+
+
+  //   window.location.href = '/'; // Or redirect the user to login screen
+  // };
 
   return (
-    <div className="container">
-      <button onClick={logout}>Logout</button>
+<div className="container" sx={{ margin: '20px' }}>
+      {/* <button onClick={logout}>Logout</button> */}
       <input type="checkbox" id="flip" />
       <div className="cover">
         <img src={Auth} alt="Auth cover" />
@@ -164,7 +174,8 @@ const AuthForm = () => {
                 <div className="button input-box">
                   <input type="submit" value="Submit" />
                 </div>
-                <div className="text sign-up-text">Don't have an account? <label htmlFor="flip">Signup now</label></div>
+                <div className="error-message">{errors.email2}</div>
+                <div className="text sign-up-text">Don't have an account? <br /><label htmlFor="flip">Signup now</label></div>
               </div>
             </form>
           </div>
@@ -195,8 +206,9 @@ const AuthForm = () => {
                 <div className="button input-box">
                   <input type="submit" value="Submit" />
                 </div>
+                <div className="error-message">{errors.email1}</div>
                 <div className="success-message">{success}</div> {/* Display success message */}
-                <div className="text sign-up-text">Already have an account? <label htmlFor="flip">Login now</label></div>
+                <div className="text sign-up-text">Already have an account? <br /><label htmlFor="flip">Login now</label></div>
               </div>
             </form>
           </div>

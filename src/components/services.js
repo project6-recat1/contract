@@ -41,7 +41,10 @@ const Services = () => {
     return (
         <ThemeProvider theme={defaultTheme}>
             <main>
-                <Container sx={{ py: 8 }} maxWidth="md">
+                <Container sx={{ py: 8 }} >
+                <Typography gutterBottom variant="h5" component="h2">
+                Our Services                           
+                </Typography>
                     {/* End hero unit */}
                     <Grid container spacing={4}>
                         {/* Generate cards dynamically based on the API response */}
@@ -66,9 +69,9 @@ const Services = () => {
                                         {/* <Typography>{service.description}</Typography> Display the description from the API response */}
                                     </CardContent>
                                     <CardActions>
-                                        {/* <Link to={`/details/${service.id}`}> */}
+                                        <Link to={`/details/${service.id}`}>
                                             <Button size="small">View</Button>
-                                        {/* </Link>    */}
+                                        </Link>   
                                         {/* <Button size="small">Edit</Button> */}
                                     </CardActions>
                                 </Card>

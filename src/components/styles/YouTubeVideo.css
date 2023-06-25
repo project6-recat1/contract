@@ -1,8 +1,9 @@
 .youtube-video-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 60vh;
   }
   
   .video-wrapper {
@@ -19,7 +20,7 @@
   }
   
   .video-text {
-    max-width: 600px;
+    max-width: 750px;
     margin: 0 auto;
     padding: 1rem;
     font-size: large;

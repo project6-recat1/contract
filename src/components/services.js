@@ -5,7 +5,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
+// import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -28,7 +28,7 @@ const Services = () => {
 
     function getServices() {
         // API request to retrieve the data
-        axios.get('http://localhost/react/reactbrief/')
+        axios.get('http://localhost/brief6/services/')
             .then(function (response) {
                 console.log(response.data);
                 setServices(response.data);
@@ -41,7 +41,10 @@ const Services = () => {
     return (
         <ThemeProvider theme={defaultTheme}>
             <main>
-                <Container sx={{ py: 8 }} maxWidth="md">
+                <Container sx={{ py: 8 }} >
+                <Typography gutterBottom variant="h5" component="h2">
+                Our Services                           
+                </Typography>
                     {/* End hero unit */}
                     <Grid container spacing={4}>
                         {/* Generate cards dynamically based on the API response */}
@@ -68,7 +71,8 @@ const Services = () => {
                                     <CardActions>
                                         <Link to={`/details/${service.id}`}>
                                             <Button size="small">View</Button>
-                                        </Link>                                        {/* <Button size="small">Edit</Button> */}
+                                        </Link>   
+                                        {/* <Button size="small">Edit</Button> */}
                                     </CardActions>
                                 </Card>
                             </Grid>

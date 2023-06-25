@@ -1,18 +1,14 @@
 import React from 'react';
+// import { BrowserRouter as Router, Route, Switch, Routes } from 'react-router-dom';
+import LandingPage from './components/landing/landingpage';
+// import UserProfile from './components/User/UserProfile';
+// import AuthForm from './components/AuthForm';
 
-import './App.css';
-
-import Dashboard from './components/dashboard';
-import Header from './components/landing/Header';
-import Footer from './components/landing/Footer';
-import YouTubeVideo from './components/landing/YouTubeVideo';
 function App() {
   return (
+
     <div>
-      <Dashboard/>
-      {/* <Header />
-      <YouTubeVideo />
-      <Footer /> */}
+    <LandingPage />
     </div>
   );
 }

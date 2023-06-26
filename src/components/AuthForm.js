@@ -60,7 +60,7 @@ const AuthForm = () => {
 
     if (Object.values(newErrors).every(x => x === "")) {
       try {
-        const response = await axios.post("http://localhost/project6/register.php", form);
+        const response = await axios.post("http://localhost/brief6/sign/register.php", form);
         if (response.data.error) {
           if (response.data.error.includes('Email')) {
             newErrors.email1 = response.data.error;
@@ -117,7 +117,7 @@ const AuthForm = () => {
           console.log(response.data);
             switch(response.data.role_id) {
                 case 1:
-                    window.location.href = '/page1';
+                    window.location.href = '/Admin';
                     break;
                 case 2:
                     window.location.href = '/profile';

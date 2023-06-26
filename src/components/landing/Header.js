@@ -160,7 +160,7 @@ const Header = () => {
         <Routes>
           <Route path="/signin" element={<AuthForm />} />  
           <Route path="/" element={<Home />} />   
-          <Route path="/details/${service.id}" element={<SingleService />} /> 
+          <Route path="/details/:id" element={<SingleService />} /> 
           <Route path="/profile" element={<UserProfile />} />   
   
         

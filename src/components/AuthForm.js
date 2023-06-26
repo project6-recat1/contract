@@ -117,7 +117,7 @@ const AuthForm = () => {
           console.log(response.data);
             switch(response.data.role_id) {
                 case 1:
-                    window.location.href = '/page1';
+                    window.location.href = '/Admin';
                     break;
                 case 2:
                     window.location.href = '/profile';

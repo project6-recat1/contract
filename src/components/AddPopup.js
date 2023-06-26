@@ -37,7 +37,7 @@ const AddPopup = ({ open, handleClose, handleAdd }) => {
 
   const fetchServiceItems = async () => {
     try {
-      const response = await axios.get('http://localhost/mycontracts/services.php');
+      const response = await axios.get('http://localhost/brief6/mycontracts/services.php');
       const services = response.data;
       setServiceItems(services);
     } catch (error) {
@@ -47,7 +47,7 @@ const AddPopup = ({ open, handleClose, handleAdd }) => {
 
   const fetchUserItems = async () => {
     try {
-      const response = await axios.get('http://localhost/mycontracts/users.php');
+      const response = await axios.get('http://localhost/brief6/mycontracts/users.php');
       const users = response.data;
       setUserItems(users);
     } catch (error) {
@@ -57,7 +57,7 @@ const AddPopup = ({ open, handleClose, handleAdd }) => {
 
   const fetchEmployeeItems = async () => {
     try {
-      const response = await axios.get('http://localhost/mycontracts/employees.php');
+      const response = await axios.get('http://localhost/brief6/mycontracts/employees.php');
       const employees = response.data;
       setEmployeeItems(employees);
     } catch (error) {
@@ -76,7 +76,7 @@ const AddPopup = ({ open, handleClose, handleAdd }) => {
   const handleSave = async () => {
     try {
       // Send a POST request to add the new contract
-      await axios.post('http://localhost/mycontracts/contracts.php', newContract);
+      await axios.post('http://localhost/brief6/mycontracts/contracts.php', newContract);
   
       // Perform any necessary operations after the save is successful
   

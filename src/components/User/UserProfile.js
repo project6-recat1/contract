@@ -22,6 +22,7 @@ export default function UserProfile() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showEditForm, setShowEditForm] = useState(false);
+  var userId = parseInt(sessionStorage.getItem('user_id')); // Convert userId to the appropriate data type
 
   const handleShowEditForm = () => {
     setShowEditForm(true);
@@ -90,7 +91,6 @@ export default function UserProfile() {
       });
   };
 
-  var userId = parseInt(sessionStorage.getItem('user_id')); // Convert userId to the appropriate data type
 
   const filteredUsers = users.filter((user) => user.id === userId);
   const filteredContracts = contracts.filter(

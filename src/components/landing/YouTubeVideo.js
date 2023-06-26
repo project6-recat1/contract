@@ -10,7 +10,7 @@ const YouTubeVideo = () => {
             params: {
                 part: 'snippet',
                 maxResults: 1,
-                key: 'AIzaSyBG5IYDJXHN7S46gCn8XFbgIB60EvlhjLM',
+                key: 'AIzaSyBHlDXcHG-Ap_RWKzAcIXYekEBy1cTZyJo',
                 channelId: 'UCzRkC3d30XsOb2MU44eA-9w'
             }
         })

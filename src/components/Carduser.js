@@ -2,18 +2,12 @@ import React, { useEffect, useState } from "react";
 import "../styles/user.css";
 import Auth from "../images/Auth.jpg";
 import axios from 'axios';
-
 import { Link } from "react-router-dom";
-import {
-  Grid,
-  Card,
-  CardContent,
-  Button,
-  Typography,
-  ThemeProvider,
-} from "@mui/material";
+import {  Grid,   Card,   CardContent,  Button,  Typography,  ThemeProvider,} from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { Dialog, DialogTitle, DialogContent, DialogActions, TextField } from "@mui/material";
+import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+
 
 const theme = createTheme();
 
@@ -21,12 +15,13 @@ const Usercard = () => {
   const [services, setServices] = useState([]);
   const [selectedService, setSelectedService] = useState(null);
   const [openModal, setOpenModal] = useState(false);
+  // const [services, setServices] = useState([]);
+// const [selectedService, setSelectedService] = useState("");
+
   const [newContractData, setNewContractData] = useState({
     service: "",
-    employee: "",
+    type: "",
     cost: "",
-    startDate: "",
-    expireDate: ""
   });
   const handleOpenModal = () => {
     setOpenModal(true);
@@ -36,18 +31,41 @@ const Usercard = () => {
     setOpenModal(false);
     setNewContractData({
       service: "",
-      employee: "",
+      type: "",
       cost: "",
-      startDate: "",
-      expireDate: ""
     });
   };
+  const calculateTotalCost = (selectedServiceId, subscriptionType) => {
+  const selectedService = services.find((service) => service.id === selectedServiceId);
+  if (selectedService) {
+    // Perform the calculation based on the selected service and subscription type
+    // Replace the example logic with your own calculation
+    let cost = selectedService.cost_3month;
+    switch (subscriptionType) {
+      case "one_month":
+        cost *= 1;
+        break;
+      case "two_month":
+        cost *= 2;
+        break;
+      case "three_month":
+        cost *= 3;
+        break;
+      default:
+        cost = 0;
+    }
+    return cost;
+  }
+  return 0;
+};
+
   const handleSubmit = () => {
     // Perform any validation or data processing here
     
     // Call the API to create the new contract
     // You can use axios or any other library for making the API call
-    
+    setNewContractData({ ...newContractData, service: selectedService });
+
     // Example using axios:
     axios.post("http://localhost/brief6/contracts/", newContractData)
       .then(response => {
@@ -60,7 +78,13 @@ const Usercard = () => {
         // Handle the error case appropriately
       });
   };
-    
+  useEffect(() => {
+    fetch("http://localhost/brief6/services/")
+      .then((response) => response.json())
+      .then((data) => setServices(data))
+      .catch((err) => console.error(err));
+  }, []);
+   
   useEffect(() => {
     fetch("http://localhost/brief6/contracts/")
       .then((response) => response.json())
@@ -118,7 +142,7 @@ const Usercard = () => {
                           variant="contained"
                           onClick={() => handleClick(item)}
                         >
-                          Submit
+                          Details
                         </Button>
                       </div>
                     </Card>
@@ -155,16 +179,42 @@ const Usercard = () => {
          <Dialog open={openModal} onClose={handleCloseModal}>
         <DialogTitle>Create New Contract</DialogTitle>
         <DialogContent>
-          {/* Add form fields here */}
-          <TextField
-            label="Service"
-            value={newContractData.service}
-            onChange={(e) => setNewContractData({ ...newContractData, service: e.target.value })}
-            fullWidth
-            margin="normal"
-          />
-          {/* Add other form fields for employee, cost, startDate, and expireDate */}
-        </DialogContent>
+  <FormControl fullWidth margin="normal">
+    <InputLabel id="service-label">Service</InputLabel>
+    <Select
+      labelId="service-label"
+      id="service"
+      value={selectedService}
+      onChange={(e) => setSelectedService(e.target.value)}
+    >
+      {services.map((service) => (
+        <MenuItem key={service.id} value={service.id}>
+          {service.name}
+        </MenuItem>
+      ))}
+    </Select>
+  </FormControl>
+
+  <FormControl fullWidth margin="normal">
+    <InputLabel id="subscription-label">Subscription Type</InputLabel>
+    <Select
+      labelId="subscription-label"
+      id="subscription"
+      value={newContractData.subscription}
+      onChange={(e) => setNewContractData({ ...newContractData, subscription: e.target.value })}
+    >
+      <MenuItem value="one_month">One Month</MenuItem>
+      <MenuItem value="two_month">Two Months</MenuItem>
+      <MenuItem value="three_month">Three Months</MenuItem>
+    </Select>
+  </FormControl>
+
+  <InputLabel>Total Cost:</InputLabel>
+  <Typography>{calculateTotalCost(selectedService, newContractData.subscription)}</Typography>
+
+  {/* Add other form fields for employee, startDate, and expireDate */}
+</DialogContent>
+
         <DialogActions>
           <Button onClick={handleCloseModal}>Cancel</Button>
           <Button onClick={handleSubmit}>Save</Button>

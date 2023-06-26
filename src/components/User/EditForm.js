@@ -5,6 +5,7 @@ const EditForm = ({ user, onSave, onCancel }) => {
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [phone, setPhone] = useState(user.phone);
+  const userId = sessionStorage.getItem("user_id");
 
   const handleSave = (e) => {
     e.preventDefault();
@@ -51,8 +52,9 @@ const EditForm = ({ user, onSave, onCancel }) => {
         </form>
       </DialogContent>
       <DialogActions>
+        <Button onClick={onCancel} color="primary">Cancel</Button>
         <Button onClick={handleSave} color="primary">Save</Button>
-        <Button onClick={onCancel} color="secondary">Cancel</Button>
+
       </DialogActions>
     </Dialog>
   );

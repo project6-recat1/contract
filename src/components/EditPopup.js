@@ -27,7 +27,7 @@ const EditPopup = ({ open, handleClose, contract, handleSave }) => {
 
   const fetchServiceItems = async () => {
     try {
-      const response = await axios.get('http://localhost/mycontracts/services.php');
+      const response = await axios.get('http://localhost/brief6/mycontracts/services.php');
       const services = response.data;
       setServiceItems(services);
     } catch (error) {
@@ -37,7 +37,7 @@ const EditPopup = ({ open, handleClose, contract, handleSave }) => {
 
   const fetchUserItems = async () => {
     try {
-      const response = await axios.get('http://localhost/mycontracts/users.php');
+      const response = await axios.get('http://localhost/brief6/mycontracts/users.php');
       const users = response.data;
       setUserItems(users);
     } catch (error) {
@@ -47,7 +47,7 @@ const EditPopup = ({ open, handleClose, contract, handleSave }) => {
 
   const fetchEmployeeItems = async () => {
     try {
-      const response = await axios.get('http://localhost/mycontracts/employees.php');
+      const response = await axios.get('http://localhost/brief6/mycontracts/employees.php');
       const employees = response.data;
       setEmployeeItems(employees);
     } catch (error) {
@@ -67,7 +67,7 @@ const EditPopup = ({ open, handleClose, contract, handleSave }) => {
     try {
       // Send a PUT request to update the contract
       await axios.put(
-        `http://localhost/mycontracts/editContract.php?contractId=${editedContract.id}`,
+        `http://localhost/brief6/mycontracts/editContract.php?contractId=${editedContract.id}`,
         editedContract
       );
   

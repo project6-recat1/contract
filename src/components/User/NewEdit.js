@@ -53,7 +53,7 @@ const UserEdit = () => {
     }
 
     try {
-      const response = await fetch("http://localhost/project6/user.php", {
+      const response = await fetch("http://localhost/brief6/sign/user.php", {
         method: "POST",
         body: JSON.stringify({ name, email, phone, id: userId }),
         headers: { "Content-Type": "application/json" },

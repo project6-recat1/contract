@@ -172,7 +172,7 @@ const SingleService = () => {
                                 sm={tier.title === 'Enterprise' ? 12 : 6}
                                 md={4}
                             >
-                                <Card>
+                                <Card style={{marginBottom:'25px'}}>
                                     <CardHeader
                                         title={tier.title}
                                         subheader={tier.subheader}
@@ -226,6 +226,7 @@ const SingleService = () => {
                                         </Button>
                                     </CardActions>
                                 </Card>
+
                             </Grid>
                         ))}
                     </Grid>

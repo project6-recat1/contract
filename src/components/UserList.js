@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,11 +9,15 @@ import Title from './Title';
 import { IconButton } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 import EditIcon from '@mui/icons-material/Edit';
+import { Box } from '@chakra-ui/layout';
+import EditUser from './EditUser';
 
-const UserList = ({ openEditUserPopup }) => {
+const UserList = () => {
   const [users, setUsers] = useState([]);
+  const [selectedUserId, setSelectedUserId] = useState(null);
+
   useEffect(() => {
-      getUsers();
+    getUsers();
   }, []);
 
   async function getUsers() {
@@ -26,7 +29,7 @@ const UserList = ({ openEditUserPopup }) => {
       console.error(error);
     }
   }
-  
+
   const deleteUser = async (id) => {
     try {
       const response = await axios.delete(`http://localhost/users-api/user/${id}/delete`);
@@ -36,7 +39,14 @@ const UserList = ({ openEditUserPopup }) => {
       console.error(error);
     }
   };
-  
+
+  const openEditUserPopup = (id) => {
+    setSelectedUserId(id);
+  };
+
+  const closeEditUserPopup = () => {
+    setSelectedUserId(null);
+  };
 
   return (
     <React.Fragment>
@@ -59,23 +69,26 @@ const UserList = ({ openEditUserPopup }) => {
               <TableCell>{user.email}</TableCell>
               <TableCell>{user.phone}</TableCell>
               <TableCell>
-              <Link
-                className="btn btn-info"
-                to={`/user/${user.id}/edit`}
-                style={{ marginRight: "10px" }}
-                onClick={() => openEditUserPopup()}
-              >
-                <EditIcon />
-              </Link>
-
-                <IconButton onClick={() => deleteUser(user.id)}>
-                  <Delete />
-                </IconButton>
+                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                  <IconButton
+                    className="btn btn-info"
+                    style={{ marginRight: '10px' }}
+                    onClick={() => openEditUserPopup(user.id)}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton style={{ marginLeft: '10px' }} onClick={() => deleteUser(user.id)}>
+                    <Delete />
+                  </IconButton>
+                </div>
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
+      {selectedUserId && (
+        <EditUser userId={selectedUserId} onClose={closeEditUserPopup} onUpdateUser={getUsers} />
+      )}
     </React.Fragment>
   );
 };

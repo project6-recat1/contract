@@ -9,6 +9,8 @@ import AuthForm from '../AuthForm';
 import Home from './Home';
 import SingleService from '../SingleService'
 import UserProfile from '../User/UserProfile';
+import Usercard from '../Carduser';
+import Services from '../services'
 
 const apiKey = 'ba10be85226b1bd0dc34c4ebdbfa3ce4'; // Replace with your OpenWeatherMap API key
 
@@ -118,19 +120,24 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <Link to="#services" className="navA">
+              <Link to="/services" className="navA">
                 Services
               </Link>
             </li>
             {isLoggedIn ? ( // Check if user is logged in
               <>
                 <li>
+                  <Link to="/contracts" className="navA">
+                    Contracts
+                  </Link>
+                </li>
+                <li>
                   <Link to="/profile" className="navA">
                     Profile
                   </Link>
                 </li>
                 <li>
-                  <Link to="/" className="logout-button" onClick={logout}>
+                  <Link to="/" className="login-button" onClick={logout}>
                     Logout
                   </Link>
                 </li>
@@ -160,9 +167,11 @@ const Header = () => {
         <Routes>
           <Route path="/signin" element={<AuthForm />} />  
           <Route path="/" element={<Home />} />   
-          <Route path="/details/:id" element={<SingleService />} /> 
+          <Route path="/details/:id" element={<SingleService />} />
+
           <Route path="/profile" element={<UserProfile />} />   
-  
+          <Route path="/contracts" element={<Usercard />} />   
+          <Route path="/services" element={<Services />} />   
         
         </Routes>
       </div>

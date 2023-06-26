@@ -20,6 +20,7 @@ import Container from '@mui/material/Container';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
+import AddPopup from './AddPopup';
 
 // style css
 import '../styles/services.css';
@@ -35,7 +36,8 @@ const SingleService = () => {
   // get user id
   var userId = sessionStorage.getItem('user_id');
   var username = sessionStorage.getItem('user_name');
-
+  const [openAddPopup, setOpenAddPopup] = useState(false);
+  const [openEditPopup, setOpenEditPopup] = useState(false);
   const [service, setService] = useState(null);
 
   const getService = (serviceId) => {
@@ -49,14 +51,30 @@ const SingleService = () => {
         console.error(error);
       });
   };
-
+  const handleSave = (editedContract) => {
+    // Perform the save operation using editedContract data
+    console.log(editedContract);
+    handleClosePopup();
+  };
   useEffect(() => {
     getService(id);
   }, [id]);
 
   // save contract in database
   const [inputs, setInputs] = useState({});
+  const handleOpenAddPopup = () => {
+    setOpenAddPopup(true);
+  };
 
+//   const handleOpenEditPopup = (contract) => {
+//     setSelectedContract(contract);
+//     setOpenEditPopup(true);
+//   };
+
+  const handleClosePopup = () => {
+    setOpenAddPopup(false);
+    setOpenEditPopup(false);
+  };
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -148,6 +166,13 @@ const SingleService = () => {
         <div className="left">
           <h2>{service ? service.service_name : ''}</h2>
           <p>{service ? service.description : ''}</p>
+          <Button
+            variant="contained"
+            style={{ backgroundColor: 'green', marginLeft: '10px' }}
+            onClick={handleOpenAddPopup}
+          >
+            Add Contract
+          </Button>
         </div>
         <div className="right">
           <img src={downloadImage} alt="Service" />
@@ -158,10 +183,12 @@ const SingleService = () => {
         <CssBaseline />
         <Container maxWidth="md" component="main">
           <Grid container spacing={5} alignItems="flex-end">
+        
             {tiers.map((tier) => (
               // Enterprise card is full width at sm breakpoint
+              
               <Grid item key={tier.title} xs={12} sm={tier.title === 'Enterprise' ? 12 : 6} md={4}>
-                <Card>
+                <Card style={{marginBottom:'25px'}}>
                   <CardHeader
                     title={tier.title}
                     subheader={tier.subheader}
@@ -175,6 +202,7 @@ const SingleService = () => {
                         theme.palette.mode === 'light' ? theme.palette.grey[200] : theme.palette.grey[700],
                     }}
                   />
+                  
                   <CardContent>
                     <Box
                       sx={{
@@ -300,6 +328,13 @@ const SingleService = () => {
               </Box>
             </Box>
           </Modal>
+          {openAddPopup && (
+        <AddPopup
+          open={openAddPopup}
+          handleClose={handleClosePopup}
+          handleAdd={handleSave}
+        />
+      )}
         </Container>
       </ThemeProvider>
     </div>

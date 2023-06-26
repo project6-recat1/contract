@@ -45,7 +45,7 @@ export default function Orders() {
 
   async function getContracts() {
     try {
-      const response = await axios.get('http://localhost/mycontracts/contracts/');
+      const response = await axios.get('http://localhost/brief6/mycontracts/contracts/');
       console.log(response.data);
 
       const currentDate = new Date();
@@ -69,7 +69,7 @@ export default function Orders() {
 
   async function handleDelete(contractId) {
     try {
-      await axios.delete(`http://localhost/mycontracts/contracts/${contractId}`);
+      await axios.delete(`http://localhost/brief6/mycontracts/contracts/${contractId}`);
 
       // After successful deletion, update the contracts state to reflect the changes
       setContracts((prevContracts) =>
@@ -85,7 +85,7 @@ export default function Orders() {
     console.log("New Status:", newStatus);
     try {
       const response = await axios.put(
-        `http://localhost/mycontracts/contracts/${contractId}?contractId=${contractId}`,
+        `http://localhost/brief6/mycontracts/contracts/${contractId}?contractId=${contractId}`,
         { status: newStatus }
       );
 

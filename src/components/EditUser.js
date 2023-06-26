@@ -16,7 +16,7 @@ function EditUser({ userId, onClose, onUpdateUser }) {
 
   async function getUser() {
     try {
-      const response = await axios.get(`http://localhost/users-api/user/${userId}`);
+      const response = await axios.get(`http://localhost/brief6/users-api/user/${userId}`);
       const { id, name, email, password, phone } = response.data;
       setInputs((prevInputs) => ({
         ...prevInputs,
@@ -40,7 +40,7 @@ function EditUser({ userId, onClose, onUpdateUser }) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    axios.put(`http://localhost/users-api/user/${userId}/edit`, inputs).then(function (response) {
+    axios.put(`http://localhost/brief6/users-api/user/${userId}/edit`, inputs).then(function (response) {
       console.log(response.data);
       setOpen(false);
       onClose();

@@ -22,7 +22,7 @@ const UserList = () => {
 
   async function getUsers() {
     try {
-      const response = await axios.get('http://localhost/users-api/users/');
+      const response = await axios.get('http://localhost/brief6/users-api/users/');
       console.log(response.data);
       setUsers(response.data);
     } catch (error) {
@@ -32,7 +32,7 @@ const UserList = () => {
 
   const deleteUser = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost/users-api/user/${id}/delete`);
+      const response = await axios.delete(`http://localhost/brief6/users-api/user/${id}/delete`);
       console.log(response.data);
       await getUsers();
     } catch (error) {

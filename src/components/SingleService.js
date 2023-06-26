@@ -62,11 +62,17 @@ const SingleService = () => {
         setInputs(values => ({ ...values, [name]: value}));
     }
 
-    const handleSubmit = (event) =>{
-        event.preventDefault();
-        axios.post('http://localhost/react/contractAPI/contract/save', inputs).then(function(response){
-            console.log(response.data);
-        });
+    // 
+    const handleSubmit = (inputs) => {
+        // event.preventDefault();
+        axios
+            .post('http://localhost/brief6/contracts/save', {inputs})
+            .then(function (response) {
+                console.log(response.data);
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
     };
 
     // todays date
@@ -155,7 +161,7 @@ const SingleService = () => {
             <ThemeProvider theme={defaultTheme}>
                 <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
                 <CssBaseline />
-                <Container maxWidth="md" component="main">
+                <Container maxWidth="md" component="main" >
                     <Grid container spacing={5} alignItems="flex-end">
                         {tiers.map((tier) => (
                             // Enterprise card is full width at sm breakpoint
@@ -248,7 +254,7 @@ const SingleService = () => {
                                     defaultValue={username}
                                     variant="standard"
                                     disabled
-                                    onChange={handleChange}
+                                    // onChange={handleChange}
                                     name={username}
                                 />
                                 <TextField
@@ -258,7 +264,7 @@ const SingleService = () => {
                                     variant="standard"
                                     disabled
                                     onChange={handleChange}
-                                    name='price'
+                                    name='total_cost'
                                 />
                                 <TextField
                                     id="standard-required"
@@ -267,8 +273,9 @@ const SingleService = () => {
                                     variant="standard"
                                     type="hidden"
                                     onChange={handleChange}
-                                    name='serviceid'
+                                    name='service_id'
                                 />
+
                                 <TextField
                                     id="standard-required"
                                     label="user_id"
@@ -287,7 +294,7 @@ const SingleService = () => {
                                     disabled
                                     InputProps={{ classes: { disabled: 'disabled-input' } }}
                                     onChange={handleChange}
-                                    name='startdate'
+                                    name='start_date'
                                 />
                                 <TextField
                                     id="standard-required"
@@ -298,7 +305,7 @@ const SingleService = () => {
                                     disabled
                                     InputProps={{ classes: { disabled: 'disabled-input' } }}
                                     onChange={handleChange}
-                                    name='expiredate'
+                                    name='expire_date'
                                 />
                                 <TextareaAutosize
                                     id="standard-multiline-flexible"
@@ -306,10 +313,10 @@ const SingleService = () => {
                                     defaultValue="I need IT services for my small business. We have a network of 10 computers and require assistance with software installation, network security, and regular system maintenance."
                                     minRows={4}
                                     disabled
-                                    onChange={handleChange}
+                                    // onChange={handleChange}
                                     name='description'
                                 />
-                                <Button variant="outlined" onClick={handleSubmit}>Submit Contract</Button>
+                                <Button variant="outlined" onClick={handleSubmit (inputs)}>Submit Contract</Button>
                             </Box>
                         </Box>
                     </Modal>

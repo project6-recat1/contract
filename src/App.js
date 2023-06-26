@@ -9,6 +9,7 @@ function App() {
 
     <div>
     <LandingPage />
+    
     </div>
   );
 }
